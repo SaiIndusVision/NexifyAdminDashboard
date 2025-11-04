@@ -1,0 +1,6 @@
+import{j as e,B as a,c as o}from"./index-BIpb7VEJ.js";import{u as r}from"./search-context-G_cGxHrS.js";import{c as m}from"./createReactComponent-q0sjk0bg.js";/**
+ * @license @tabler/icons-react v3.34.1 - MIT
+ *
+ * This source code is licensed under the MIT license.
+ * See the LICENSE file in the root directory of this source tree.
+ */const c=[["path",{d:"M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0",key:"svg-0"}],["path",{d:"M21 21l-6 -6",key:"svg-1"}]],l=m("outline","search","Search",c);function h({className:t="",placeholder:s="Search"}){const{setOpen:n}=r();return e.jsxs(a,{variant:"outline",className:o("bg-muted/25 text-muted-foreground hover:bg-muted/50 relative h-8 w-full flex-1 justify-start rounded-md text-sm font-normal shadow-none sm:pr-12 md:w-40 md:flex-none lg:w-56 xl:w-64",t),onClick:()=>n(!0),children:[e.jsx(l,{"aria-hidden":"true",className:"absolute top-1/2 left-1.5 -translate-y-1/2"}),e.jsx("span",{className:"ml-3",children:s}),e.jsxs("kbd",{className:"bg-muted pointer-events-none absolute top-[0.3rem] right-[0.3rem] hidden h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px] font-medium opacity-100 select-none sm:flex",children:[e.jsx("span",{className:"text-xs",children:"⌘"}),"K"]})]})}export{l as I,h as S};

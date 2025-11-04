@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aryan Food Corner - Authentic Indian Flavors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .heading-font {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            background: linear-gradient(-45deg, #d97706, #b91c1c, #7c2d12, #d97706);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        /* Card hover effects */
+        .menu-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1.5rem;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 15px rgba(185, 28, 28, 0.3);
+        }
+        
+        /* Glassmorphism effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Custom button animation */
+        .btn-custom {
+            background: linear-gradient(135deg, #7c2d12, #d97706);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4);
+        }
+        
+        .btn-custom::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #b91c1c, #7c2d12);
+            transition: left 0.3s ease;
+        }
+        
+        .btn-custom:hover::before {
+            left: 0;
+        }
+        
+        .btn-custom:hover {
+            box-shadow: 0 6px 20px rgba(124, 45, 18, 0.6);
+            transform: scale(1.05);
+        }
+        
+        .btn-custom span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Section reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: reveal 1.2s ease forwards;
+        }
+        
+        @keyframes reveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Custom logo glow */
+        .logo-glow {
+            animation: glow 2.5s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(185, 28, 28, 0.5)); }
+            50% { filter: drop-shadow(0 0 15px rgba(185, 28, 28, 0.8)); }
+        }
+        
+        /* Price tag animation */
+        .price-tag {
+            background: linear-gradient(135deg, #b91c1c, #7c2d12);
+            animation: priceGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes priceGlow {
+            from { box-shadow: 0 0 8px rgba(185, 28, 28, 0.5); }
+            to { box-shadow: 0 0 15px rgba(124, 45, 18, 0.8); }
+        }
+        
+        /* Enhanced Hero Section Styling */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(185, 28, 28, 0.7), rgba(217, 119, 6, 0.7));
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            max-width: 800px;
+        }
+        
+        .hero-spice {
+            position: absolute;
+            opacity: 0.2;
+            pointer-events: none;
+            animation: float 10s ease-in-out infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #facc15, #f87171);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px rgba(250, 204, 21, 0.7); }
+            to { text-shadow: 0 0 20px rgba(248, 113, 113, 0.9); }
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: #fef3c7;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero-cta {
+            display: inline-flex;
+            gap: 1rem;
+            animation: fadeIn 1.8s ease-in forwards;
+        }
+        
+        /* Print styles */
+        @media print {
+            .bg-animated { background: white !important; }
+            .glass { background: white !important; border: none !important; }
+            .btn-custom, .floating-btn { display: none !important; }
+            .menu-card { border: 1px solid #e2e8f0 !important; box-shadow: none !important; }
+            .price-tag { background: #b91c1c !important; }
+            img { max-width: 100px !important; height: auto !important; }
+            .text-white { color: #000 !important; }
+            .text-yellow-100 { color: #4a5568 !important; }
+            .hero-section { background: none !important; }
+            .hero-overlay { background: none !important; }
+            .hero-spice { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-animated min-h-screen relative overflow-x-hidden">
+    <!-- Floating particles -->
+    <div class="particle w-4 h-4 bg-amber-600 top-20 left-10" style="animation-delay: 0s;"></div>
+    <div class="particle w-6 h-6 bg-red-800 top-40 right-20" style="animation-delay: 1s;"></div>
+    <div class="particle w-3 h-3 bg-orange-700 top-60 left-1/4" style="animation-delay: 2s;"></div>
+    <div class="particle w-5 h-5 bg-amber-700 bottom-40 right-10" style="animation-delay: 3s;"></div>
+    <div class="particle w-4 h-4 bg-red-600 bottom-60 left-16" style="animation-delay: 4s;"></div>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="hero-overlay"></div>
+        <!-- Spice decorative elements -->
+        <img src="https://img.icons8.com/color/96/000000/spices.png" alt="Spices" class="hero-spice w-32 h-32 top-10 left-10" style="animation-delay: 0s;">
+        <img src="https://img.icons8.com/color/96/000000/curry.png" alt="Curry" class="hero-spice w-24 h-24 bottom-20 right-16" style="animation-delay: 2s;">
+        <img src="https://img.icons8.com/color/96/000000/chili-pepper.png" alt="Chili" class="hero-spice w-20 h-20 top-1/3 right-1/4" style="animation-delay: 4s;">
+        <div class="hero-content container mx-auto px-4">
+            <!-- Custom Logo -->
+            <h1 class="heading-font hero-title">Aryan Food Corner</h1>
+            <p class="hero-subtitle">Savor the Essence of India on Wheels</p>
+            <div class="hero-cta">
+                <button class="btn-custom px-8 py-4 rounded-xl font-semibold text-white text-lg">
+                    <span>Explore Menu</span>
+                </button>
+                <button class="glass px-8 py-4 rounded-xl font-semibold text-white text-lg border-2 border-white/30 hover:bg-white/20 transition-all duration-300">
+                    <span>Track Our Truck</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Sections -->
+    <main class="container mx-auto py-16 px-4">
+        <!-- Breakfast Menu -->
+        <section class="mb-20 reveal" style="animation-delay: 0.2s;">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-5xl md:text-6xl font-bold text-white mb-4">Breakfast Menu</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-amber-400 to-red-400 mx-auto rounded-full"></div>
+                <p class="text-amber-100 text-lg mt-4">Start your day with authentic South Indian delights</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Plain Dosa -->
+               
+                <!-- Uggani Mirchi -->
+                <div class="menu-card bg-white/15 rounded-2xl overflow-hidden group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1604152135912-04b82c0d0588?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250&q=80" alt="Uggani Mirchi" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="price-tag absolute top-3 right-3 text-white px-3 py-1 rounded-full font-bold text-lg">₹60</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Uggani Mirchi</h3>
+                        <p class="text-amber-100 text-sm mb-4 leading-relaxed">Spicy puffed rice stir-fry with green chilies and aromatic spices</p>
+                        <button class="btn-custom w-full py-3 rounded-xl font-semibold text-white">
+                            <span>Order Now</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lunch Menu -->
+        <section class="mb-20 reveal" style="animation-delay: 0.4s;">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-5xl md:text-6xl font-bold text-white mb-4">Lunch Menu</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-orange-400 mx-auto rounded-full"></div>
+                <p class="text-amber-100 text-lg mt-4">Hearty meals to fuel your afternoon</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Rice -->
+                
+                <!-- Omlet -->
+                <div class="menu-card bg-white/15 rounded-2xl overflow-hidden group">
+                    <div class="relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1588165173560-8a6a10f58844?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=250&q=80" alt="Omlet" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="price-tag absolute top-3 right-3 text-white px-3 py-1 rounded-full font-bold text-lg">₹60</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Omlet</h3>
+                        <p class="text-amber-100 text-sm mb-4 leading-relaxed">Fluffy egg omelette with onions and green chilies</p>
+                        <button class="btn-custom w-full py-3 rounded-xl font-semibold text-white">
+                            <span>Order Now</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evening Menu -->
+        <section class="mb-20 reveal" style="animation-delay: 0.6s;">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-5xl md:text-6xl font-bold text-white mb-4">Evening Menu</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-orange-400 to-amber-400 mx-auto rounded-full"></div>
+                <p class="text-amber-100 text-lg mt-4">Perfect evening snacks and light meals</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Bread Omlet -->
+                
+                        <!-- Mirchi Bajji -->
+                        <div class="menu-card bg-white/15 rounded-2xl overflow-hidden group">
+                            <div class="relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1604152135912-04b82c0d0588?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=80" alt="Mirchi Bajji" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <div class="price-tag absolute top-3 right-3 text-white px-3 py-1 rounded-full font-bold text-lg">₹60</div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-white mb-2">Mirchi Bajji</h3>
+                                <p class="text-amber-100 text-sm mb-4 leading-relaxed">Crispy green chili fritters, deep-fried to golden perfection</p>
+                                <button class="btn-custom w-full py-3 rounded-xl font-semibold text-white">
+                                    <span>Order Now</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+        <!-- Special Offers Section -->
+        <section class="mb-20 reveal" style="animation-delay: 0.8s;">
+            <div class="glass rounded-3xl p-12 text-center">
+                <h2 class="heading-font text-4xl md:text-5xl font-bold text-white mb-6">Special Offers</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-gradient-to-r from-amber-400 to-red-600 rounded-2xl p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2">🌅 Breakfast Combo</h3>
+                        <p class="text-lg mb-4">2 Dosas + Sambar + Chutney</p>
+                        <div class="text-3xl font-black">₹100 <span class="text-lg line-through opacity-75">₹120</span></div>
+                    </div>
+                    <div class="bg-gradient-to-r from-red-600 to-orange-400 rounded-2xl p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-2">🍽️ Lunch Special</h3>
+                        <p class="text-lg mb-4">Rice + Curry + Dal + Pickle</p>
+                        <div class="text-3xl font-black">₹150 <span class="text-lg line-through opacity-75">₹180</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Location -->
+        <section class="reveal" style="animation-delay: 1s;">
+            <div class="glass rounded-3xl p-12 text-center">
+                <h2 class="heading-font text-4xl md:text-5xl font-bold text-white mb-8">Find Us</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-white">
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-amber-400 to-red-600 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Location</h3>
+                            <p class="text-amber-100">Mobile Food Truck<br>Multiple locations daily</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-red-600 to-orange-600 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Call Us</h3>
+                            <p class="text-amber-100">+91 98765 43210<br>Daily: 7 AM - 9 PM</p>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-16 h-16 bg-gradient-to-r from-orange-600 to-amber-400 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold mb-2">Email</h3>
+                            <p class="text-amber-100">order@aryanfoodcorner.com<br>Follow us on social media</p>
+                        </div>
+                    </div>
+                    <div class="mt-12 flex justify-center space-x-6">
+                        <button class="btn-custom px-8 py-4 rounded-xl font-semibold text-white text-lg">
+                            <span>📱 WhatsApp Order</span>
+                        </button>
+                        <button class="glass px-8 py-4 rounded-xl font-semibold text-white text-lg border-2 border-white/30 hover:bg-white/20 transition-all duration-300">
+                            <span>📍 Track Our Truck</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="glass mt-20 py-12 text-center text-white">
+            <div class="container mx-auto px-4">
+                <div class="logo-glow mb-6">
+                    <svg width="80" height="80" viewBox="0 0 120 120" class="mx-auto">
+                        <defs>
+                            <linearGradient id="footerTruckGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#b91c1c"/>
+                                <stop offset="50%" style="stop-color:#7c2d12"/>
+                                <stop offset="100%" style="stop-color:#d97706"/>
+                            </linearGradient>
+                        </defs>
+                        <rect x="20" y="45" width="70" height="35" rx="5" fill="url(#footerTruckGradient)"/>
+                        <rect x="10" y="50" width="25" height="25" rx="3" fill="url(#footerTruckGradient)"/>
+                        <rect x="12" y="52" width="8" height="8" rx="1" fill="#fff" opacity="0.9"/>
+                        <rect x="22" y="52" width="8" height="8" rx="1" fill="#fff" opacity="0.9"/>
+                        <circle cx="25" cy="85" r="8" fill="#333"/>
+                        <circle cx="75" cy="85" r="8" fill="#333"/>
+                        <circle cx="25" cy="85" r="5" fill="#666"/>
+                        <circle cx="75" cy="85" r="5" fill="#666"/>
+                        <circle cx="60" cy="30" r="4" fill="#fff" opacity="0.7"/>
+                        <circle cx="65" cy="20" r="3" fill="#fff" opacity="0.5"/>
+                        <circle cx="70" cy="15" r="2" fill="#fff" opacity="0.3"/>
+                        <circle cx="55" cy="62" r="3" fill="#fff" opacity="0.9"/>
+                        <rect x="50" y="65" width="10" height="2" rx="1" fill="#fff" opacity="0.8"/>
+                    </svg>
+                </div>
+                <h3 class="heading-font text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-red-300 to-orange-300">
+                    Aryan Food Corner
+                </h3>
+                <p class="text-amber-100 mb-6 max-w-2xl mx-auto">
+                    Bringing authentic Indian flavors to your neighborhood. Fresh ingredients, traditional recipes, and the love of home-cooked meals on wheels.
+                </p>
+                <div class="flex justify-center space-x-8 mb-8">
+                    <a href="https://facebook.com" class="text-amber-100 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24h-1.918c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.731 0 1.325-.593 1.325-1.325V1.325C24 .593 23.407 0 22.675 0z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com" class="text-amber-100 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="https://twitter.com" class="text-amber-100 hover:text-white transition-colors duration-300">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124-4.087-.205-7.713-2.165-10.141-5.144-.424.722-.666 1.561-.666 2.475 0 1.708.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.317 0-.626-.03-.928-.086.626 1.956 2.444 3.379 4.6 3.419-1.685 1.32-3.808 2.105-6.115 2.105-.397 0-.789-.023-1.175-.068 2.179 1.397 4.768 2.212 7.557 2.212 9.054 0 14.002-7.496 14.002-13.986 0-.213-.005-.425-.014-.636.961-.689 1.797-1.546 2.457-2.518z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="border-t border-white/20 pt-8">
+                    <p class="text-amber-100 text-sm">
+                        © 2025 Aryan Food Corner. All rights reserved. | Made with ❤️ for food lovers
+                    </p>
+                    <p class="text-amber-100 text-xs mt-2">
+                        Fresh • Authentic • Delicious | Serving happiness one meal at a time
+                    </p>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Floating Action Button -->
+        <div class="fixed bottom-6 right-6 z-50">
+            <button class="btn-custom w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl">
+                <span>🛒</span>
+            </button>
+        </div>
+
+        <!-- JavaScript -->
+        <script>
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 8 + 2 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.backgroundColor = ['#b91c1c', '#7c2d12', '#d97706'][Math.floor(Math.random() * 3)];
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                document.body.appendChild(particle);
+                setTimeout(() => particle.parentNode?.removeChild(particle), 10000);
+            }
+            setInterval(createParticle, 2000);
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', e => {
+                    e.preventDefault();
+                    const target = document.querySelector(anchor.getAttribute('href'));
+                    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            document.querySelectorAll('.btn-custom').forEach(button => {
+                button.addEventListener('click', e => {
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.left = (e.offsetX - 10) + 'px';
+                    ripple.style.top = (e.offsetY - 10) + 'px';
+                    ripple.style.width = '20px';
+                    ripple.style.height = '20px';
+                    button.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to { transform: scale(4); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+        </script>
+    </body>
+</html>

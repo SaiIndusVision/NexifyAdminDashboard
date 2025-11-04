@@ -1,0 +1,39 @@
+# Ignore Python cache files
+**/__pycache__/
+**/*.py[cod]
+*.pyo
+
+# Ignore all Django migration files
+**/migrations/
+**/migrations/*.py
+!**/migrations/__init__.py  # Keep __init__.py so the folder stays a Python module
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Ignore IDE/editor configs
+.vscode/
+.idea/
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore logs
+*.log
+
+# Ignore coverage/test artifacts
+htmlcov/
+coverage.xml
+*.cover
+*.py,cover
+.cache
+nosetests.xml
+test_*.log
+
+# Ignore compiled static files
+# staticfiles/
+
+# Ignore Frontend file
+# frontend/
