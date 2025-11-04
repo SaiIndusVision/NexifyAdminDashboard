@@ -620,6 +620,18 @@ class FielEngineerVerification(viewsets.ViewSet):
         }
     )
     def create(self, request):
+        def normalize_phone(num: str) -> str:
+            num = str(num).strip()
+            # remove + if exists
+            if num.startswith('+'):
+                num = num[1:]
+            # remove leading country code 91 if present
+            if num.startswith('91') and len(num) > 10:
+                num = num[2:]
+            # remove any leading zeros
+            num = num.lstrip('0')
+            return num[-10:]   # always last 10 digits
+
         workspace_id = request.data.get("workspace_id")
         phone_number = request.data.get("phone_number")
 
@@ -628,6 +640,9 @@ class FielEngineerVerification(viewsets.ViewSet):
                 {"status": False, "message": "workspace_id and phone_number are required."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+        # normalize incoming phone
+        phone_number = normalize_phone(phone_number)
 
         try:
             workspace = Workspace.objects.get(id=workspace_id)
@@ -643,7 +658,10 @@ class FielEngineerVerification(viewsets.ViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        if workspace.field_assistant.phone_number == phone_number:
+        # also normalize db phone
+        db_phone = normalize_phone(workspace.field_assistant.phone_number)
+
+        if db_phone == phone_number:
             return Response({"status": True, "message": "Field assistant is correctly assigned."})
         else:
             return Response({"status": False, "message": "Incorrect field assistant."}, status=status.HTTP_400_BAD_REQUEST)
